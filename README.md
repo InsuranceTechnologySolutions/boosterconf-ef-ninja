@@ -31,15 +31,25 @@ dotnet ef migrations add InitialMigration
 ```
 The output looks like this:
 
-![Wrong Schema](/Images/Ninja_WrongSchema_Task1.png)
+![Original Schema](/Images/Task_One_Original_Setup.png)
 
-The models are quite simple. But for the different types, you should add the following constraints:
+On first look, this looks fine, but I want you to fix a couple of things / bugs:
 
-* Table ..., add a unique constraint on field ...
-* Foreign key relationships using annotations. 
+* Some of the foreign key fields have "wrong names":
 
+    ![Wrong field names](/Images/Wrong_FK_Name.png)
 
+    Hint! The ...entity lacks the field which represents the FK. You can decorate that field property with an annotation [ForeignKey("NameOfField")] to make the Entity class easier to read (or if you have schemas which does not allow the ef core engine to naturally resolve these FK references).
 
+* When running the initial migration above, there were some warnings written to the console. Get rid of them
+    * The schemas now uses nvarchar(max) as type for the string fields.
+    
+        Hint! Look at the StringLength attribute. What should the appropriate values be?
+    * Decimal precision is not specified. 
+        Hint! Use the DecimalPrecision attribute. What is the appropriate value for our use cases?
+    
+* Indicies
+    * Finding a customer by a FirstName, LastName combination will be common use case. Add a composite index consisting of these fields.
 
 
 ### Task 2 - More advanced features
@@ -48,8 +58,7 @@ The models are quite simple. But for the different types, you should add the fol
     * Run custom queries
     * Seeding
 
-
-
+* Supporting multiple schema (names)
 
 ### Task 3 - Inheritance
 We will cover the different types:
