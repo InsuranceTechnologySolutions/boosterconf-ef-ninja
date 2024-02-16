@@ -1,5 +1,8 @@
 
+using BoosterConf.Ef.Ninja.TaskOne.Constants;
 using BoosterConf.Ef.Ninja.TaskOne.Extensions;
+using BoosterConf.Ef.Ninja.TaskOne.Storage;
+using Microsoft.EntityFrameworkCore;
 
 namespace BoosterConf.Ef.Ninja.TaskOne
 {
@@ -18,6 +21,16 @@ namespace BoosterConf.Ef.Ninja.TaskOne
 
             builder.Services.AddCustomServices();
 
+            builder.Services.AddDbContextPool<InsuranceDbContext>(options =>
+            {
+                var connectionString = builder.Configuration[EnvironmentVariables.DatabaseConnection];
+                options.UseSqlServer(connectionString!,
+                                       sqlServerOptions =>
+                                       {
+                        sqlServerOptions.EnableRetryOnFailure();
+                    });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -35,5 +48,6 @@ namespace BoosterConf.Ef.Ninja.TaskOne
 
             app.Run();
         }
+
     }
 }

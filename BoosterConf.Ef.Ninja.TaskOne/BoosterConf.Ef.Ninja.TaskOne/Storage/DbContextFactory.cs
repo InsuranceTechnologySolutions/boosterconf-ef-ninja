@@ -3,15 +3,15 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace BoosterConf.Ef.Ninja.TaskOne.Storage
 {
-    public class DesignTimeDbContextFactory<T> : IDesignTimeDbContextFactory<T> where T : DbContext 
+    public class DbContextFactory : IDesignTimeDbContextFactory<InsuranceDbContext> 
     {
-        public T CreateDbContext(string[] args)
+        public InsuranceDbContext CreateDbContext(string[] args)
         {
-            var builder = new DbContextOptionsBuilder<T>(); 
+            var builder = new DbContextOptionsBuilder<InsuranceDbContext>(); 
             builder.UseSqlServer(
                 connectionString: "Server=(localdb)\\mssqllocaldb;Database=BoosterConfEfNinjaTaskOne;Trusted_Connection=True;MultipleActiveResultSets=true");
 
-            return ((T)Activator.CreateInstance(type: typeof(T), builder.Options)!);
+            return new InsuranceDbContext(builder.Options);
         }
     }
 }
