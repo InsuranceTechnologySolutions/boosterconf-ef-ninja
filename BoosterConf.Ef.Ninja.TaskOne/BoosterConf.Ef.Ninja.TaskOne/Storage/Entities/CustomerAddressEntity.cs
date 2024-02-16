@@ -1,6 +1,6 @@
 ﻿namespace BoosterConf.Ef.Ninja.TaskOne.Storage.Entities
 {
-    public class CustomerAddress : IEntity
+    public class CustomerAddressEntity : IEntity
     {
         public int Id { get; set; }
         public Guid ExternalId { get; set; }

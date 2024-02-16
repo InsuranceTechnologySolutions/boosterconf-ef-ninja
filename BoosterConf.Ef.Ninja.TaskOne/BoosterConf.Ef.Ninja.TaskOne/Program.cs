@@ -31,6 +31,8 @@ namespace BoosterConf.Ef.Ninja.TaskOne
                     });
             });
 
+            builder.Services.AddAutoMapper();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -1,11 +1,10 @@
-﻿namespace BoosterConf.Ef.Ninja.TaskOne.Models
+﻿namespace BoosterConf.Ef.Ninja.TaskOne.Models;
+
+public class Claim
 {
-    public class Claim
-    {
-        public Guid Id { get; set; }
-        public required string Description { get; set; }
-        public required DateTimeOffset Date { get; set; }
-        public required ClaimStatus Status { get; set; }        
-        public required decimal Amount { get; set; }
-    }
+    public Guid Id { get; set; }
+    public required string Description { get; set; }
+    public required DateTimeOffset Date { get; set; }
+    public required ClaimStatus Status { get; set; }        
+    public required decimal Amount { get; set; }
 }

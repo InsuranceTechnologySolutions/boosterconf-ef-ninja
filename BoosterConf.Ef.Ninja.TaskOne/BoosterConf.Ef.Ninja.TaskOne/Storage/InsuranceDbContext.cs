@@ -12,7 +12,7 @@ namespace BoosterConf.Ef.Ninja.TaskOne.Storage
 
         public DbSet<Entities.CustomerEntity> Customers => Set<Entities.CustomerEntity>();
 
-        public DbSet<Entities.CustomerAddress> CustomerAddresses => Set<Entities.CustomerAddress>();
+        public DbSet<Entities.CustomerAddressEntity> CustomerAddresses => Set<Entities.CustomerAddressEntity>();
 
         public DbSet<Entities.CoverEntity> Covers => Set<Entities.CoverEntity>();
 

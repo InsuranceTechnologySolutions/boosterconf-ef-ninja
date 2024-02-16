@@ -17,10 +17,22 @@ This repository cannot be forked.
 These were mentioned in the outline for the workshop in the program, but outlining them here:
 
 * YOU do need a local DBMS setup, preferably SQL Express or a developer edition of SQL Server. 
+* MS SQL Server Management Studio. 
 * A C# compliant IDE (We will be using Visual Studio 2022, patched to version 17.8.6). In a standard setup, you will then already have EF version 8.x installed. 
-* Github account, or else using the template above will go :boom:. 
+* Github account, or else using the template above will not work :boom:
 
 ### Task 1 - The basics
+Ok, we have the initial setup, but something is off. 
+
+Running the migrations (from the CLI):
+
+```
+dotnet ef migrations add InitialMigration
+```
+The output looks like this:
+
+![Wrong Schema](/Images/Ninja_WrongSchema_Task1.png)
+
 The models are quite simple. But for the different types, you should add the following constraints:
 
 * Table ..., add a unique constraint on field ...
