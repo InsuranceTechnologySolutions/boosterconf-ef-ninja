@@ -1,0 +1,6 @@
+@BoosterConf.Ef.Ninja.TaskOne.Completed_HostAddress = http://localhost:5272
+
+GET {{BoosterConf.Ef.Ninja.TaskOne.Completed_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
