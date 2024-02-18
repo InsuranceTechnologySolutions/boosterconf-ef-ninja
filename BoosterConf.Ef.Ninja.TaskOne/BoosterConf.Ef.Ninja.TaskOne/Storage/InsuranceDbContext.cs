@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BoosterConf.Ef.Ninja.TaskOne.Storage.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace BoosterConf.Ef.Ninja.TaskOne.Storage
 {
@@ -17,5 +18,22 @@ namespace BoosterConf.Ef.Ninja.TaskOne.Storage
         public DbSet<Entities.CoverEntity> Covers => Set<Entities.CoverEntity>();
 
         public DbSet<Entities.ClaimEntity> Claims => Set<Entities.ClaimEntity>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            ConfigureEntities(modelBuilder: modelBuilder);
+            base.OnModelCreating(modelBuilder: modelBuilder);    
+        }
+
+        private void ConfigureEntities(ModelBuilder modelBuilder)
+        {
+            ClaimEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.ClaimEntity>());
+            ClaimStatusEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.ClaimStatusEntity>());
+            CoverEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CoverEntity>());
+            CoverTypeEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CoverTypeEntity>());
+            CustomerAddressEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CustomerAddressEntity>());
+            CustomerEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CustomerEntity>());           
+        }
     }
 }

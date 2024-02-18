@@ -59,6 +59,7 @@ On first look, this looks fine, but I want you to fix a couple of things / bugs:
     * Seeding
 
 * Supporting multiple schema (names)
+    * 
 
 ### Task 3 - Inheritance
 We will cover the different types:
@@ -82,6 +83,10 @@ Go to folder /Script - copy paste the script into you ssms instance (or however 
 Open a terminal, navigate to folder ....
 
 Read this article on how to run the scaffolding command
+
+´´´
+
+´´´
 
 ..
 
