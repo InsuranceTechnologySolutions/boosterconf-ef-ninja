@@ -21,7 +21,7 @@ These were mentioned in the outline for the workshop in the program, but outlini
 * A C# compliant IDE (We will be using Visual Studio 2022, patched to version 17.8.6). In a standard setup, you will then already have EF version 8.x installed. 
 * Github account, or else using the template above will not work :boom:
 
-### Task 1 - The basics
+### Task A - The basics
 Ok, we have the initial setup, but something is off. 
 
 Running the migrations (from the CLI):
@@ -35,7 +35,7 @@ The output looks like this:
 
 On first look, this looks fine, but I want you to fix a couple of things / bugs:
 
-* Some of the foreign key fields have "wrong names":
+* One of the foreign key fields have "wrong name":
 
     ![Wrong field names](/Images/Wrong_FK_Name.png)
 
@@ -52,7 +52,7 @@ On first look, this looks fine, but I want you to fix a couple of things / bugs:
     * Finding a customer by a FirstName, LastName combination will be common use case. Add a composite index consisting of these fields.
 
 
-### Task 2 - More advanced features
+### Task B - More advanced features
 
 * Manipulating the migrations (adding your own stuff). 
     * Run custom queries
@@ -82,13 +82,13 @@ Go to folder /Script - copy paste the script into you ssms instance (or however 
 
 Open a terminal, navigate to folder ....
 
-Read this article on how to run the scaffolding command
+
 
 ´´´
 
 ´´´
 
-..
+More details on what happens in this article: 
 
 Examine the output. Is this a good starting point for further development?
 

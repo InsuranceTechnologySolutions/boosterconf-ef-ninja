@@ -7,7 +7,8 @@ namespace BoosterConf.Ef.Ninja.TaskA.Completed.Storage.Configuration
     {
         public static void Configure(EntityTypeBuilder<CustomerEntity> builder)
         { 
-            //TODO: Implement the configuration
+            //Create composite index on firstname and lastname columns
+            builder.HasIndex(e => new { e.FirstName, e.LastName }).IsUnique();
         }
     }
 }
