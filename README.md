@@ -54,14 +54,71 @@ On first look, this looks fine, but I want you to fix a couple of things / bugs:
 
 ### Task B - More advanced features
 
-* Manipulating the migrations (adding your own stuff). 
-    * Run custom queries
-    * Seeding
+You will probably have to run the same migrations multiple times, so a few helping snippets:
 
-* Supporting multiple schema (names)
-    * 
+``` 
+DROP DATABASE [BoosterConfEfNinjaTaskOne-TaskB]
+```
 
+Also, this project contains multiple DbContext to support multiple schemas. When adding the migration(s), you will get a warning if not using the --context switch:
+
+```
+dotnet ef migrations add InitialMigraton --context InsuranceDbContext
+dotnet ef migrations add InitialMigraton --context AuditDbContext
+```
+
+```
+dotnet ef migrations remove --context InsuranceDbContext
+```
+
+```
+dotnet ef migrations remove --context AuditDbContext
+```
+
+* Supporting multiple schemas 
+    * We want to have a separate set of tables of Auditing. The schema (prefix) should be "Audit.". 
+        * Audit.Claim
+        * Audit.Cover
+    
+    Hint! Edit the AuditClaimEntityConfiguration.cs and AuditCoverEntityConfiguration.cs
+    ```
+    builder.ToTable("Claim", "audit"); //similar for audit.Cover
+    ```
+
+* Seeding lookup data in a migration. We need to seed the ClaimStatus table.
+
+
+    | ID | Name      | Description |
+    |----|-----------|-------------|
+    | 1  | Submitted | The claim has been submitted and is awaiting review. |
+    | 2  | In Review | The claim is currently being reviewed by an insurance adjuster. |
+    | 3  | Approved  | The claim has been approved for payment. |
+    | 4  | Rejected  | The claim has been rejected and will not be paid. |
+    | 5  | Paid      | The claim has been paid to the policyholder. |
+
+    Hint! EntityTypeBuilder has a "HasData" method:
+
+    ```
+    builer.HasData(new List<ClaimStatusEntity>
+        new() { Id = 1, Name = "Submitted", Description = "The claim has been submitted and is..."},
+        ...
+    );
+    ```
+
+
+* Editing the migrations (adding your own stuff). 
+    * Run custom queries (to fix bugs for instance)
+
+    Hint! Create an empty migration, add your own custom content using this format:
+    ```
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql("Delete dbo.ClaimStatus where ID = 5");
+        }
+    ```
+    
 ### Task 3 - Inheritance
+
 We will cover the different types:
 
 * TPH - one table per hierarchy
@@ -69,6 +126,7 @@ We will cover the different types:
 * TPC - table per concrete type
 
 ### Task 4 - Performance tips
+
 The current code needs to be refactored. The following queries are not performing well, can you see why?
 
 * Class.cs, lines x-xx
@@ -76,13 +134,12 @@ The current code needs to be refactored. The following queries are not performin
 * Class3.cs, lines x-xx
 
 ### Task 5 - Scaffolding
+
 There are certain scenarios where you start out with a set of schemas already existing. What to do then and how to move into a code-first setup?
 
 Go to folder /Script - copy paste the script into you ssms instance (or however you choose to run your DB scripts), run it. You now have as set of tables related to eachother, constraints already added ++
 
 Open a terminal, navigate to folder ....
-
-
 
 ´´´
 
@@ -91,5 +148,3 @@ Open a terminal, navigate to folder ....
 More details on what happens in this article: 
 
 Examine the output. Is this a good starting point for further development?
-
-

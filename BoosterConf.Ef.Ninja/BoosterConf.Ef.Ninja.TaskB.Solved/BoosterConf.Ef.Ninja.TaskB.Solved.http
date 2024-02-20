@@ -1,0 +1,6 @@
+@BoosterConf.Ef.Ninja.TaskB.Solved_HostAddress = http://localhost:5046
+
+GET {{BoosterConf.Ef.Ninja.TaskB.Solved_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
