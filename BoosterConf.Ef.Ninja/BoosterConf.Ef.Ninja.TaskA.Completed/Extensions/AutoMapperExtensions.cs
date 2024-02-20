@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace BoosterConf.Ef.Ninja.TaskA.Completed.Extensions
+namespace BoosterConf.Ef.Ninja.TaskA.Solved.Extensions
 {
     public static class AutoMapperExtensions
     {

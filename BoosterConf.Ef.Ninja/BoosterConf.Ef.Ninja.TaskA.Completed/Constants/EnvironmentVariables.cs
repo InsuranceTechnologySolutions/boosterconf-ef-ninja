@@ -1,4 +1,4 @@
-﻿namespace BoosterConf.Ef.Ninja.TaskA.Completed.Constants
+﻿namespace BoosterConf.Ef.Ninja.TaskA.Solved.Constants
 {
     public static class EnvironmentVariables
     {

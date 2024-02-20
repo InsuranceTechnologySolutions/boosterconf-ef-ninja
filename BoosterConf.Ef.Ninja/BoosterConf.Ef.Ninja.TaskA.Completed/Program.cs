@@ -1,9 +1,9 @@
-using BoosterConf.Ef.Ninja.TaskA.Completed.Constants;
-using BoosterConf.Ef.Ninja.TaskA.Completed.Extensions;
-using BoosterConf.Ef.Ninja.TaskA.Completed.Storage;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Constants;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Extensions;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Storage;
 using Microsoft.EntityFrameworkCore;
 
-namespace BoosterConf.Ef.Ninja.TaskA.Completed
+namespace BoosterConf.Ef.Ninja.TaskA.Solved
 {
     public class Program
     {

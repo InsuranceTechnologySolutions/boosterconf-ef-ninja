@@ -1,7 +1,7 @@
-﻿using BoosterConf.Ef.Ninja.TaskA.Completed.Storage.Configuration;
+﻿using BoosterConf.Ef.Ninja.TaskA.Solved.Storage.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-namespace BoosterConf.Ef.Ninja.TaskA.Completed.Storage
+namespace BoosterConf.Ef.Ninja.TaskA.Solved.Storage
 {
     public class InsuranceDbContext : DbContext
     {

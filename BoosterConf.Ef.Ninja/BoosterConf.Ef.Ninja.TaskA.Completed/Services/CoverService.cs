@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using BoosterConf.Ef.Ninja.TaskA.Completed.Models;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Models;
 
-namespace BoosterConf.Ef.Ninja.TaskA.Completed.Services
+namespace BoosterConf.Ef.Ninja.TaskA.Solved.Services
 {
     public interface ICoverService
     {

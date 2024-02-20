@@ -1,6 +1,6 @@
-﻿using BoosterConf.Ef.Ninja.TaskA.Completed.Storage.Entities;
+﻿using BoosterConf.Ef.Ninja.TaskA.Solved.Storage.Entities;
 
-namespace BoosterConf.Ef.Ninja.TaskA.Completed.Storage
+namespace BoosterConf.Ef.Ninja.TaskA.Solved.Storage
 {
     public interface IGenericRepository<TEntity> where TEntity : class, IEntity   
     {

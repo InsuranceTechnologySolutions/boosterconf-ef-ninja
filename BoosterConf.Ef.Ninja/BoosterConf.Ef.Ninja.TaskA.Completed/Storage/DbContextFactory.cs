@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace BoosterConf.Ef.Ninja.TaskA.Completed.Storage
+namespace BoosterConf.Ef.Ninja.TaskA.Solved.Storage
 {
     public class DbContextFactory : IDesignTimeDbContextFactory<InsuranceDbContext> 
     {

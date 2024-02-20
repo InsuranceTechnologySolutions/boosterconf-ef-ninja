@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskA", "BoosterConf.Ef.Ninja.TaskA\BoosterConf.Ef.Ninja.TaskA.csproj", "{F8ACA91D-8684-4B6A-A895-FAFDC67D0562}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskA.Completed", "BoosterConf.Ef.Ninja.TaskA.Completed\BoosterConf.Ef.Ninja.TaskA.Completed.csproj", "{498085CA-FD1F-44F7-B18D-33781F543499}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskA.Solved", "BoosterConf.Ef.Ninja.TaskA.Completed\BoosterConf.Ef.Ninja.TaskA.Solved.csproj", "{498085CA-FD1F-44F7-B18D-33781F543499}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

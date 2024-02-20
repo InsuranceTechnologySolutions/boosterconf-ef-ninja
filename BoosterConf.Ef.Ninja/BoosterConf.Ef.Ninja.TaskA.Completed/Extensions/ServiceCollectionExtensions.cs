@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using BoosterConf.Ef.Ninja.TaskA.Completed.Services;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Services;
 
-namespace BoosterConf.Ef.Ninja.TaskA.Completed.Extensions
+namespace BoosterConf.Ef.Ninja.TaskA.Solved.Extensions
 {
     public static class ServiceCollectionExtensions
     {

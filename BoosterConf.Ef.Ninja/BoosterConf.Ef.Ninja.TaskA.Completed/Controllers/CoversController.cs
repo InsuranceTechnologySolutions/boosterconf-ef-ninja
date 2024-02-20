@@ -1,8 +1,8 @@
-using BoosterConf.Ef.Ninja.TaskA.Completed.Models;
-using BoosterConf.Ef.Ninja.TaskA.Completed.Services;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Models;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BoosterConf.Ef.Ninja.TaskA.Completed.Controllers
+namespace BoosterConf.Ef.Ninja.TaskA.Solved.Controllers
 {
     [ApiController]
     [Route("[controller]")]

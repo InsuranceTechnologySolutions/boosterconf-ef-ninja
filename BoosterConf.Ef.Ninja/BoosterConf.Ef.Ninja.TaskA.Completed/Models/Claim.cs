@@ -1,4 +1,4 @@
-﻿namespace BoosterConf.Ef.Ninja.TaskA.Completed.Models;
+﻿namespace BoosterConf.Ef.Ninja.TaskA.Solved.Models;
 
 public class Claim
 {

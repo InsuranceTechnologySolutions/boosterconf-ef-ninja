@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace BoosterConf.Ef.Ninja.TaskA.Completed.Storage.Entities
+namespace BoosterConf.Ef.Ninja.TaskA.Solved.Storage.Entities
 {
     public class ClaimEntity : IEntity
     {
