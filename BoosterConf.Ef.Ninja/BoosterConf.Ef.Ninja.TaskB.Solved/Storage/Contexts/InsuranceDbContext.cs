@@ -1,9 +1,9 @@
-﻿using BoosterConf.Ef.Ninja.TaskB.Storage.Configuration;
-using BoosterConf.Ef.Ninja.TaskB.Storage.Configuration.Audit;
-using BoosterConf.Ef.Ninja.TaskB.Storage.Entities.Audit;
+﻿using BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Configuration;
+using BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Configuration.Audit;
+using BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Entities.Audit;
 using Microsoft.EntityFrameworkCore;
 
-namespace BoosterConf.Ef.Ninja.TaskB.Storage.Contexts
+namespace BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Contexts
 {
     public class InsuranceDbContext : DbContext
     {
@@ -21,9 +21,9 @@ namespace BoosterConf.Ef.Ninja.TaskB.Storage.Contexts
 
         public DbSet<Entities.ClaimEntity> Claims => Set<Entities.ClaimEntity>();
 
-        public DbSet<AuditClaimEntity> AuditClaims => Set<AuditClaimEntity>();
+        public DbSet<AuditClaimEntity> AuditClaims { get; set; }
 
-        public DbSet<AuditCoverEntity> AuditCover => Set<AuditCoverEntity>();
+        public DbSet<AuditCoverEntity> AuditCover { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace BoosterConf.Ef.Ninja.TaskB.Storage.Contexts
             CustomerAddressEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CustomerAddressEntity>());
             CustomerEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CustomerEntity>());
 
-            // Audit
+            //Audit
             AuditClaimEntityConfiguration.Configure(builder: modelBuilder.Entity<AuditClaimEntity>());
             AuditCoverEntityConfiguration.Configure(builder: modelBuilder.Entity<AuditCoverEntity>());
         }

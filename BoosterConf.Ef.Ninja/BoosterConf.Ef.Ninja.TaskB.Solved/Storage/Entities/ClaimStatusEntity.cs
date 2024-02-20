@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BoosterConf.Ef.Ninja.TaskB.Storage.Entities
+namespace BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Entities
 {
     public class ClaimStatusEntity : IEntity 
     {

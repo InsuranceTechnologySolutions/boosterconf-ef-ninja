@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace BoosterConf.Ef.Ninja.TaskB.Storage.Entities
+namespace BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Entities
 {
     public class CoverEntity : IEntity
     {
@@ -9,7 +9,7 @@ namespace BoosterConf.Ef.Ninja.TaskB.Storage.Entities
         public required CoverTypeEntity CoverType { get; set; }
         public required DateTimeOffset StartDate { get; set; }
         public required DateTimeOffset EndDate { get; set; }
-        [Precision(14, 4)] // 14 digits in total, 4 after the decimal point
+        [Precision(14, 4)] 
         public required decimal Premium { get; set; }
         public required CustomerEntity Customer { get; set; }
         public ICollection<ClaimEntity>? Claims { get; set; }       

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BoosterConf.Ef.Ninja.TaskB.Storage.Entities
+namespace BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Entities
 {
     public class CustomerEntity : IEntity
     {
@@ -13,8 +13,8 @@ namespace BoosterConf.Ef.Ninja.TaskB.Storage.Entities
         [StringLength(100)]
         public required string Email { get; set; }
         [StringLength(100)]
-        public required string PhoneNumber { get; set; }        
-        public CustomerAddressEntity Address { get; set; } = null!;
+        public required string PhoneNumber { get; set; }         
+        public CustomerAddressEntity Address { get; set; }
         public ICollection<CoverEntity>? Covers { get; set; }
     }
 }

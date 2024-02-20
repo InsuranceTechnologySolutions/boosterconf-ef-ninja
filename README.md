@@ -60,29 +60,23 @@ You will probably have to run the same migrations multiple times, so a few helpi
 DROP DATABASE [BoosterConfEfNinjaTaskOne-TaskB]
 ```
 
-Also, this project contains multiple DbContext to support multiple schemas. When adding the migration(s), you will get a warning if not using the --context switch:
-
 ```
-dotnet ef migrations add InitialMigraton --context InsuranceDbContext
-dotnet ef migrations add InitialMigraton --context AuditDbContext
+dotnet ef migrations add InitialMigraton 
 ```
 
 ```
-dotnet ef migrations remove --context InsuranceDbContext
+dotnet ef migrations remove
 ```
 
-```
-dotnet ef migrations remove --context AuditDbContext
-```
 
 * Supporting multiple schemas 
     * We want to have a separate set of tables of Auditing. The schema (prefix) should be "Audit.". 
-        * Audit.Claim
-        * Audit.Cover
+        * audit.Claims
+        * audit.Covers
     
     Hint! Edit the AuditClaimEntityConfiguration.cs and AuditCoverEntityConfiguration.cs
     ```
-    builder.ToTable("Claim", "audit"); //similar for audit.Cover
+    builder.ToTable("Claims", "audit"); //similar for audit.Covers
     ```
 
 * Seeding lookup data in a migration. We need to seed the ClaimStatus table.

@@ -31,16 +31,6 @@ namespace BoosterConf.Ef.Ninja.TaskB
                     });
             });
 
-            builder.Services.AddDbContextPool<AuditDbContext>(options =>
-            {
-                var connectionString = builder.Configuration[EnvironmentVariables.DatabaseConnection];
-                options.UseSqlServer(connectionString!,
-                    sqlServerOptions =>
-                    {
-                        sqlServerOptions.EnableRetryOnFailure();
-                    });
-            });
-
             builder.Services.AddAutoMapper();
 
             var app = builder.Build();

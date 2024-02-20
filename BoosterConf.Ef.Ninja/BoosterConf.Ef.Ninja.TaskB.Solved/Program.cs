@@ -1,3 +1,7 @@
+using BoosterConf.Ef.Ninja.TaskB.Solved.Constants;
+using BoosterConf.Ef.Ninja.TaskB.Solved.Extensions;
+using BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace BoosterConf.Ef.Ninja.TaskB.Solved
 {
@@ -14,6 +18,20 @@ namespace BoosterConf.Ef.Ninja.TaskB.Solved
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCustomServices();
+
+            builder.Services.AddDbContextPool<InsuranceDbContext>(options =>
+            {
+                var connectionString = builder.Configuration[EnvironmentVariables.DatabaseConnection];
+                options.UseSqlServer(connectionString!,
+                    sqlServerOptions =>
+                    {
+                        sqlServerOptions.EnableRetryOnFailure();
+                    });
+            });
+
+            builder.Services.AddAutoMapper();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,7 +44,6 @@ namespace BoosterConf.Ef.Ninja.TaskB.Solved
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
