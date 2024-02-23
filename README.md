@@ -115,19 +115,13 @@ dotnet ef migrations remove
 
 We will cover the different types:
 
-* TPH - one table per hierarchy
-* TBT - table per type
-* TPC - table per concrete type
+* TPH - one table per hierarchy (using a discriminator)
+* TBT - table per type (the sub type specific fields are stored in separate tables)
+* TPC - table per concrete type (all fields are stored in separate tables)
 
-### Task 4 - Performance tips
+The concepts are explained here: [EF Core Inheritance](https://learn.microsoft.com/en-us/ef/core/modeling/inheritance).
 
-The current code needs to be refactored. The following queries are not performing well, can you see why?
-
-* Class.cs, lines x-xx
-* Class2.cs, lines x-xx
-* Class3.cs, lines x-xx
-
-### Task 5 - Scaffolding
+### Task 4 - Scaffolding
 
 There are certain scenarios where you start out with a set of schemas already existing. What to do then and how to move into a code-first setup?
 

@@ -36,7 +36,11 @@ namespace BoosterConf.Ef.Ninja.TaskC.Storage
             CoverEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CoverEntity>());
             CoverTypeEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CoverTypeEntity>());
             CustomerAddressEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CustomerAddressEntity>());
-            CustomerEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CustomerEntity>());           
+            CustomerEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.CustomerEntity>());        
+            
+            //Table-per-type inheritance
+            LifeClaimEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.LifeClaimEntity>());   
+            AutoClaimEntityConfiguration.Configure(builder: modelBuilder.Entity<Entities.AutoClaimEntity>());   
         }
     }
 }
