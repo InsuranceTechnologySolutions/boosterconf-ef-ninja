@@ -151,4 +151,4 @@ That's it! We hope you enjoyed the workshop!
 
 Thank you from Morten and Stig!
 
-[Instech Logo](/Images/instech_logo.png)
+![Instech Logo](/Images/instech_logo.png)
