@@ -12,7 +12,7 @@ namespace BoosterConf.Ef.Ninja.TaskC.Storage.Configuration
             //builder.ToTable("LifeClaims");
 
             //Table-per-concrete-type inheritance
-            builder.ToTable("LifeClaims").UseTpcMappingStrategy();
+            //builder.ToTable("LifeClaims").UseTpcMappingStrategy();
         }
     }
 }

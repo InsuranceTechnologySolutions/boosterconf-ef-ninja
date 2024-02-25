@@ -20,6 +20,8 @@ These were mentioned in the outline for the workshop in the program, but outlini
 * MS SQL Server Management Studio. 
 * A C# compliant IDE (We will be using Visual Studio 2022, patched to version 17.8.6). In a standard setup, you will then already have EF version 8.x installed. 
 * Github account, or else using the template above will not work :boom:
+* EF core Tools (but those should be installed as a part of Visual Studio)
+    * EF Core CLI Tools ```dotnet tool install --global dotnet-ef```
 
 ### Task A - The basics
 Ok, we have the initial setup, but something is off. 
@@ -125,14 +127,28 @@ The concepts are explained here: [EF Core Inheritance](https://learn.microsoft.c
 
 There are certain scenarios where you start out with a set of schemas already existing. What to do then and how to move into a code-first setup?
 
-Go to folder /Script - copy paste the script into you ssms instance (or however you choose to run your DB scripts), run it. You now have as set of tables related to eachother, constraints already added ++
+Go to folder ```{repository root}/Scripts``` - copy paste the script into you ssms instance (or however you choose to run your DB scripts), run it. You now have as set of tables related to eachother, constraints already added ++
 
-Open a terminal, navigate to folder ....
+You should now have the DB schemas on your localDb:
 
-´´´
+![Task D Schemas](/Images/TaskD_Initial_Setup.png)
 
-´´´
+Open a terminal, navigate to the Task ```BoosterConf.Ef.Ninja\BoosterConf.Ef.Ninja.TaskD``` folder (it must be the folder where the .csproj file is located). Run the following command:
 
-More details on what happens in this article: 
+```
+dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BoosterConfEfNinjaTaskOne-TaskD" Microsoft.EntityFrameworkCore.SqlServer
+```
+
+More details on what happens in this article: [EF Core Scaffolding](https://learn.microsoft.com/en-us/ef/core/managing-schemas/scaffolding/?tabs=dotnet-core-cli)
 
 Examine the output. Is this a good starting point for further development?
+
+IMO: Some cleanup is required. The classes created are partial (they are not!), the DbContext is messy, I would move bits into static Configuration files ++.
+
+This TaskD does not have a "Solved" project, the expected output is the same as TaskA.Solved. 
+
+That's it! We hope you enjoyed the workshop!
+
+Thank you from Morten and Stig!
+
+[Instech Logo](/Images/instech_logo.png)
