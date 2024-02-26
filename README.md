@@ -14,11 +14,11 @@ This repository is a template repository, so use this guide:
 This repository cannot be forked. 
 
 ## The Requirements
-These were mentioned in the outline for the workshop in the program, but outlining them here:
+These were mentioned in the program, but repeating them here:
 
 * YOU do need a local DBMS setup, preferably SQL Express or a developer edition of SQL Server. 
 * MS SQL Server Management Studio. 
-* A C# compliant IDE (We will be using Visual Studio 2022, patched to version 17.8.6). In a standard setup, you will then already have EF version 8.x installed. 
+* A C# compliant IDE (We will be using Visual Studio 2022, with all updates). In a standard setup, you will then already have EF version 8.x installed. 
 * Github account, or else using the template above will not work :boom:
 * EF core Tools (but those should be installed as a part of Visual Studio)
     * EF Core CLI Tools ```dotnet tool install --global dotnet-ef```
@@ -41,12 +41,12 @@ On first look, this looks fine, but I want you to fix a couple of things / bugs:
 
     ![Wrong field names](/Images/Wrong_FK_Name.png)
 
-    Hint! The ...entity lacks the field which represents the FK. You can decorate that field property with an annotation [ForeignKey("NameOfField")] to make the Entity class easier to read (or if you have schemas which does not allow the ef core engine to naturally resolve these FK references).
+    Hint! The ClaimsEntity lacks the field which represents the FK. You can also decorate that field with an annotation [ForeignKey("CoverId")] to make the Entity class easier to read (or if you have schemas which does not allow the ef core engine to naturally resolve these FK references).
 
-* When running the initial migration above, there were some warnings written to the console. Get rid of them
-    * The schemas now uses nvarchar(max) as type for the string fields.
+* When running the initial migration above, there were some warnings written to the console. Get rid of them:
+    * The schemas now uses nvarchar(max) as type for the string fields. This has a performance penalty.
     
-        Hint! Look at the StringLength attribute. What should the appropriate values be?
+        Hint! Look at the StringLength or MaxLength attribute (these are equvalent in ef core). What should the appropriate values be?
     * Decimal precision is not specified. 
         Hint! Use the DecimalPrecision attribute. What is the appropriate value for our use cases?
     
@@ -71,7 +71,7 @@ dotnet ef migrations remove
 ```
 
 
-* Supporting multiple schemas 
+* Supporting multiple schemas names (prefixes apart from dbo.*)
     * We want to have a separate set of tables of Auditing. The schema (prefix) should be "Audit.". 
         * audit.Claims
         * audit.Covers
