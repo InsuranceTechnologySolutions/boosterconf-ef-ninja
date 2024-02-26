@@ -21,7 +21,6 @@ namespace BoosterConf.Ef.Ninja.TaskA.Solved.Storage
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             ConfigureEntities(modelBuilder: modelBuilder);
             base.OnModelCreating(modelBuilder: modelBuilder);    
         }

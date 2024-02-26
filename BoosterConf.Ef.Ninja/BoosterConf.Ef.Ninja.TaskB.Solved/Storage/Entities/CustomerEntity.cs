@@ -14,7 +14,7 @@ namespace BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Entities
         public required string Email { get; set; }
         [StringLength(100)]
         public required string PhoneNumber { get; set; }         
-        public CustomerAddressEntity Address { get; set; }
+        public required CustomerAddressEntity Address { get; set; }
         public ICollection<CoverEntity>? Covers { get; set; }
     }
 }
