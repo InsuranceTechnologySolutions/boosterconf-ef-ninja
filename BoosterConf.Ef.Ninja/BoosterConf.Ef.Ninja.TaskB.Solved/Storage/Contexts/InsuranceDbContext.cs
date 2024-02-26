@@ -21,9 +21,9 @@ namespace BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Contexts
 
         public DbSet<Entities.ClaimEntity> Claims => Set<Entities.ClaimEntity>();
 
-        public DbSet<AuditClaimEntity> AuditClaims { get; set; }
+        public DbSet<AuditClaimEntity> AuditClaims => Set<AuditClaimEntity>();
 
-        public DbSet<AuditCoverEntity> AuditCover { get; set; }
+        public DbSet<AuditCoverEntity> AuditCover => Set<AuditCoverEntity>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
