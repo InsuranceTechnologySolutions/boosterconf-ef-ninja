@@ -127,6 +127,8 @@ We will cover the different types:
 
 The concepts are explained here: [EF Core Inheritance](https://learn.microsoft.com/en-us/ef/core/modeling/inheritance).
 
+Note: Task C does not have a ".Solved" project, the output will be quite different based on the inheritance strategy you select, so this is just for you to experiment. 
+
 #### TPH - This is the default setup, you do not have to do anything
 
 #### TBT - Do the following:
@@ -183,7 +185,7 @@ More details on what happens in this article: [EF Core Scaffolding](https://lear
 
 Examine the output. Is this a good starting point for further development?
 
-IMO: Some cleanup is required. The classes created are partial (they are not!), the DbContext is messy, I would move bits into static Configuration files ++.
+IMO: Some cleanup is required. The classes created as partial (they are not!), the DbContext is messy, I would move configuration of the entities into static files. But hey! That is up to you. 
 
 This TaskD does not have a "Solved" project, the expected output is the same as TaskA.Solved. 
 
