@@ -115,6 +115,10 @@ dotnet ef migrations remove
     
 ### Task 3 - Inheritance
 
+The model has changed slightly. Now there is a base claim, and to subtypes; LifeClaim and AutoClaim:
+
+![Claim class diagram](/Images/Claim-models.jpeg)
+
 We will cover the different types:
 
 * TPH - one table per hierarchy (using a discriminator)
@@ -122,6 +126,42 @@ We will cover the different types:
 * TPC - table per concrete type (all fields are stored in separate tables)
 
 The concepts are explained here: [EF Core Inheritance](https://learn.microsoft.com/en-us/ef/core/modeling/inheritance).
+
+#### TPH - This is the default setup, you do not have to do anything
+
+#### TBT - Do the following:
+
+```
+//In ClaimEntityConfiguration.cs
+builder.ToTable("Claims"); //this is stating the obvious, but we need to be explicit
+
+//In AutoClaimEntityConfiguration.cs
+builder.ToTable("AutoClaims");
+
+//In LifeClaimEntityConfiguration.cs
+builder.ToTable("LifeClaims");
+```
+
+The expected output after running the migrations:
+
+![Table-Per-Type](/Images/Table-Per-Type.png)
+
+#### TPC - Do the following:
+
+```
+//In ClaimEntityConfiguration.cs
+builder.ToTable("Claims").UseTpcMappingStrategy();
+
+//In AutoClaimEntityConfiguration.cs
+builder.ToTable("AutoClaims").UseTpcMappingStrategy();
+
+//In LifeClaimEntityConfiguration.cs
+builder.ToTable("LifeClaims").UseTpcMappingStrategy();
+```
+
+The expected output after running the migrations:
+
+![Table-Per-Concrete-Type](/Images/Table-Per-Concrete-Type.png)
 
 ### Task 4 - Scaffolding
 
@@ -147,8 +187,8 @@ IMO: Some cleanup is required. The classes created are partial (they are not!), 
 
 This TaskD does not have a "Solved" project, the expected output is the same as TaskA.Solved. 
 
-That's it! We hope you enjoyed the workshop!
+That's it! We hope you enjoyed the workshop! 
 
-Thank you from Morten and Stig!
+Thank you from Morten and Stig! 
 
 ![Instech Logo](/Images/instech_logo.png)

@@ -8,10 +8,10 @@ namespace BoosterConf.Ef.Ninja.TaskC.Storage.Configuration
     {
         public static void Configure(EntityTypeBuilder<AutoClaimEntity> builder)
         {
-            //demo: Table-per-type inheritance
+            ////Table-per-type inheritance
             //builder.ToTable("AutoClaims");
 
-            //demo: Table-per-concrete-type inheritance
+            ////Table-per-concrete-type inheritance
             //builder.ToTable("AutoClaims").UseTpcMappingStrategy();
         }
     }
