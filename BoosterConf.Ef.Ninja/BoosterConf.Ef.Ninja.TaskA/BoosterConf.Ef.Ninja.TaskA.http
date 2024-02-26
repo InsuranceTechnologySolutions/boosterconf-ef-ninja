@@ -1,0 +1,6 @@
+@BoosterConf.Ef.Ninja.TaskOne_HostAddress = http://localhost:5194
+
+GET {{BoosterConf.Ef.Ninja.TaskOne_HostAddress}}/Covers/
+Accept: application/json
+
+###
