@@ -1,9 +1,0 @@
-services: 
-  sql-server-db:
-    container_name: sql-server-db
-    image: mcr.microsoft.com/mssql/server:latest
-    ports:
-      - "1433:1433"
-    environment:
-      MSSQL_SA_PASSWORD: "P@ssw0rd"
-      ACCEPT_EULA: "Y"
