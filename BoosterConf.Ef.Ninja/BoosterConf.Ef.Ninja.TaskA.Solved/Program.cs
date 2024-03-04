@@ -1,6 +1,6 @@
-using BoosterConf.Ef.Ninja.TaskB.Solved.Constants;
-using BoosterConf.Ef.Ninja.TaskB.Solved.Extensions;
-using BoosterConf.Ef.Ninja.TaskB.Solved.Storage.Contexts;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Constants;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Extensions;
+using BoosterConf.Ef.Ninja.TaskA.Solved.Storage;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
