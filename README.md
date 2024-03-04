@@ -54,9 +54,7 @@ In order to apply the migration, you need to run:
 dotnet ef database update
 ```
 This will have updated the schema for the database. If you then inspect the schema for your database using your
-management studio.
-
-The output looks like this:
+management studio, it should looks like this:
 
 ![Original Schema](/Images/Task_One_Original_Setup.png)
 
@@ -66,7 +64,7 @@ On first look, this looks fine, but I want you to fix a couple of things / bugs:
 
     ![Wrong field names](/Images/Wrong_FK_Name.png)
 
-    Hint! The ClaimsEntity lacks the field which represents the FK. You can also decorate that field with an annotation [ForeignKey("CoverId")] to make the Entity class easier to read (or if you have schemas which does not allow the ef core engine to naturally resolve these FK references).
+    Hint! The ClaimsEntity lacks the field which represents the FK. You can also decorate that field with an annotation `[ForeignKey("CoverId")]` to make the Entity class easier to read (or if you have schemas which does not allow the ef core engine to naturally resolve these FK references).
 
 * When running the initial migration above, there were some warnings written to the console. Get rid of them:
     * The schemas now uses nvarchar(max) as type for the string fields. This has a performance penalty.
