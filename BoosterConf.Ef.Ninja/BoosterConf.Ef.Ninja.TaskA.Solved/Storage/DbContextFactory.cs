@@ -9,7 +9,7 @@ namespace BoosterConf.Ef.Ninja.TaskA.Solved.Storage
         {
             var builder = new DbContextOptionsBuilder<InsuranceDbContext>(); 
             builder.UseSqlServer(
-                connectionString: "Server=(localdb)\\mssqllocaldb;Database=BoosterConfEfNinjaTaskOne-TaskA-Completed;Trusted_Connection=True;MultipleActiveResultSets=true");
+                connectionString: "Server=(localdb)\\mssqllocaldb;Database=BoosterConfEfNinjaTaskOne-TaskA-Solved;Trusted_Connection=True;MultipleActiveResultSets=true");
 
             return new InsuranceDbContext(builder.Options);
         }

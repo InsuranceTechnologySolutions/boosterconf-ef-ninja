@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskA", "BoosterConf.Ef.Ninja.TaskA\BoosterConf.Ef.Ninja.TaskA.csproj", "{F8ACA91D-8684-4B6A-A895-FAFDC67D0562}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskA.Solved", "BoosterConf.Ef.Ninja.TaskA.Completed\BoosterConf.Ef.Ninja.TaskA.Solved.csproj", "{498085CA-FD1F-44F7-B18D-33781F543499}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskA.Solved", "BoosterConf.Ef.Ninja.TaskA.Solved\BoosterConf.Ef.Ninja.TaskA.Solved.csproj", "{498085CA-FD1F-44F7-B18D-33781F543499}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskB", "BoosterConf.Ef.Ninja.TaskB\BoosterConf.Ef.Ninja.TaskB.csproj", "{5530846C-E5CC-48BF-A3B0-D7EE1FDA278C}"
 EndProject
@@ -14,6 +14,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskC", "BoosterConf.Ef.Ninja.TaskC\BoosterConf.Ef.Ninja.TaskC.csproj", "{5ACF3126-C4BA-42C1-A88D-1CC4553C35E2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoosterConf.Ef.Ninja.TaskD", "BoosterConf.Ef.Ninja.TaskD\BoosterConf.Ef.Ninja.TaskD.csproj", "{417022DC-2274-4723-B45F-D64400716AD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{A14AA42A-CBC0-4357-839E-052390A7FC19}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

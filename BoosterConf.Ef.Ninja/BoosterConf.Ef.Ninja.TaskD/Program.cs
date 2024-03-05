@@ -1,49 +1,33 @@
 using BoosterConf.Ef.Ninja.TaskD.Constants;
+using BoosterConf.Ef.Ninja.TaskD.Extensions;
 using BoosterConf.Ef.Ninja.TaskD.Storage;
 using Microsoft.EntityFrameworkCore;
 
-namespace BoosterConf.Ef.Ninja.TaskD
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddCustomServices();
+builder.Services.AddAutoMapper();
+
+builder.Services.AddDbContextPool<InsuranceDbContext>(options =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
+    var connectionString = builder.Configuration[EnvironmentVariables.DatabaseConnection];
+    options.UseSqlServer(
+        connectionString!,
+        sqlServerOptions =>
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            builder.Services.AddDbContextPool<InsuranceDbContext>(options =>
-            {
-                var connectionString = builder.Configuration[EnvironmentVariables.DatabaseConnection];
-                options.UseSqlServer(connectionString!,
-                    sqlServerOptions =>
-                    {
-                        sqlServerOptions.EnableRetryOnFailure();
-                    });
-            });
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
+            sqlServerOptions.EnableRetryOnFailure();
         }
-    }
-}
+    );
+});
+
+var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
