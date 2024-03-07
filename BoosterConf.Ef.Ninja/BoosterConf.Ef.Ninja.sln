@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskA", "BoosterConf.Ef.Ninja.TaskA\BoosterConf.Ef.Ninja.TaskA.csproj", "{F8ACA91D-8684-4B6A-A895-FAFDC67D0562}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskA.Solved", "BoosterConf.Ef.Ninja.TaskA.Solved\BoosterConf.Ef.Ninja.TaskA.Solved.csproj", "{498085CA-FD1F-44F7-B18D-33781F543499}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosterConf.Ef.Ninja.TaskB", "BoosterConf.Ef.Ninja.TaskB\BoosterConf.Ef.Ninja.TaskB.csproj", "{5530846C-E5CC-48BF-A3B0-D7EE1FDA278C}"
@@ -20,16 +18,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoosterConf.Ef.Ninja.Api", "BoosterConf.Ef.Ninja.Api\BoosterConf.Ef.Ninja.Api.csproj", "{AD2F47EC-7C11-4D06-AA76-FC054CFF9EC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoosterConf.Ef.Ninja.Database", "BoosterConf.Ef.Ninja.Database\BoosterConf.Ef.Ninja.Database.csproj", "{D1BADD85-5E32-4917-B410-2CADB2DD19A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F8ACA91D-8684-4B6A-A895-FAFDC67D0562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8ACA91D-8684-4B6A-A895-FAFDC67D0562}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8ACA91D-8684-4B6A-A895-FAFDC67D0562}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8ACA91D-8684-4B6A-A895-FAFDC67D0562}.Release|Any CPU.Build.0 = Release|Any CPU
 		{498085CA-FD1F-44F7-B18D-33781F543499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{498085CA-FD1F-44F7-B18D-33781F543499}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{498085CA-FD1F-44F7-B18D-33781F543499}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +48,14 @@ Global
 		{417022DC-2274-4723-B45F-D64400716AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{417022DC-2274-4723-B45F-D64400716AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{417022DC-2274-4723-B45F-D64400716AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD2F47EC-7C11-4D06-AA76-FC054CFF9EC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD2F47EC-7C11-4D06-AA76-FC054CFF9EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD2F47EC-7C11-4D06-AA76-FC054CFF9EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD2F47EC-7C11-4D06-AA76-FC054CFF9EC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1BADD85-5E32-4917-B410-2CADB2DD19A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1BADD85-5E32-4917-B410-2CADB2DD19A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1BADD85-5E32-4917-B410-2CADB2DD19A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1BADD85-5E32-4917-B410-2CADB2DD19A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
