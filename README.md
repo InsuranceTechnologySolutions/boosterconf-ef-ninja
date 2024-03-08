@@ -1,11 +1,12 @@
 # Become an Entity Framework Ninja 🥷
 
-> ### Note for non-windows users
-> 
-> This workshop should have been platform-independent, but due to a bug (https://github.com/microsoft/mssql-docker/issues/868), we couldn't make it run in docker.
-> 
-> Sorry for the inconvenience.
 
+>### Note for non-windows users
+>
+>This workshop should have been platform-independent, but due to a bug 
+(https://github.com/microsoft/mssql-docker/issues/868), we couldn't make it run in docker.
+> Sorry for the inconvenience.
+ 
 ## Short DDD introduction
 
 Slide-deck: [DDD - BoosterConf](https://instechas-my.sharepoint.com/:p:/g/personal/stig_nielsen_instech_no/EZCh10uwmQdNhL_lNy-pLm0B1-mP2juwa5-AD0KZ1ExSGg?e=780smi)
@@ -39,6 +40,18 @@ Maximum preparedness checklist:
 - `dotnet ef` (or `dotnet-ef`) runs successfully. This means you installed the EntityFramework tools correctly.
 
 ### Task A - The Basics
+
+---
+ **What is EF (really):** 
+ 
+ It is a powerful Object-Relational Mapping framework for .NET. It enables you (as a dev) to focus on the domain specific models/stuff, without having to think too much about the underlying database tables and columns. 
+
+ One of the key features is the code first approach. You do **everything** in C# / VB.Net. EF will then do the heavy lifting for you and create the DDL queries / scripts for you which will create the DB schemas for you. 
+ 
+ Migrations is another powerful feature. It keeps you database schemas (tables ++) in synch with your EF C# models and preserving data between changes. When you change your models, EF will figure out the difference between your current model and the existing schema and update the database accordingly. You can basically do whatever you want, and the migrations will also enable you to rollback changes if needed. 
+
+ ---
+
 Ok, we have the initial setup, but something is off. We are missing the migrations in our dotnet solution.
 
 Scaffolding the migrations (from the CLI):
@@ -46,10 +59,19 @@ Scaffolding the migrations (from the CLI):
 ```bash
 dotnet ef migrations add InitialMigration
 ```
-This command should generate a migration C# file alongside the current snapshot of the database schema in your
+This command generates a migration C# file alongside the current snapshot of the database schema in your
 project under `Migrations`.
 
+If you need to redo something, you can always remove the most recent migration:
+
+```bash
+dotnet ef migrations remove
+```
+
+> **NOTE:** Only migrations not applied to the DB can be removed. In our workshop, just delete the database if this prevents you from removing a migration. You can do that in the context meny in SQL Management Studio (delete), or by running ```DROP DATABASE <NAME_OF_DB>```.
+
 In order to apply the migration, you need to run:
+
 ```bash
 dotnet ef database update
 ```
@@ -60,11 +82,11 @@ management studio, it should looks like this:
 
 On first look, this looks fine, but I want you to fix a couple of things / bugs:
 
-* One of the foreign key fields have "wrong name":
+* One of the foreign key fields in Claims has a name not adhering to standard (CoverEntityId):
 
     ![Wrong field names](/Images/Wrong_FK_Name.png)
 
-    Hint! The ClaimsEntity lacks the field which represents the FK. You can also decorate that field with an annotation `[ForeignKey("CoverId")]` to make the Entity class easier to read (or if you have schemas which does not allow the ef core engine to naturally resolve these FK references).
+    Hint! The ClaimsEntity lacks the (navigation) property which represents the FK. You can also decorate that field with an annotation `[ForeignKey("CoverId")]` to make the Entity class easier to read (or if you have schemas which does not allow the ef core engine to naturally resolve these FK references).
 
 * When running the initial migration above, there were some warnings written to the console. Get rid of them:
     * The schemas now uses nvarchar(max) as type for the string fields. This has a performance penalty.
@@ -120,9 +142,37 @@ builder.ToTable("Claims", "audit"); //similar for audit.Covers
 Hint! EntityTypeBuilder has a "HasData" method:
 
 ```csharp
-builer.HasData(new List<ClaimStatusEntity>
-    new() { Id = 1, Name = "Submitted", Description = "The claim has been submitted and is..."},
-    //...
+builder.HasData(
+    new ClaimStatusEntity { 
+        Id = 1, 
+        Name = "Submited", 
+        Description = "The claim has been submitted and is awaiting review.", 
+        ExternalId = new Guid("659a9701-1f76-4993-bcbd-4d703c4e91cf") 
+    },
+    new ClaimStatusEntity { 
+        Id = 2, 
+        Name = "In Review", 
+        Description = "The claim is currently being reviewed by an insurance adjuster.", 
+        ExternalId = new Guid("5e5fb9bb-2f4a-4a6d-a8ff-3cd43321d7a3") 
+    },
+    new ClaimStatusEntity { 
+        Id = 3, 
+        Name = "Approved", 
+        Description = "The claim has been approved for payment.", 
+        ExternalId = new Guid("5ee54db2-1d57-4b82-89cd-ece3957cf1b3") 
+    },
+    new ClaimStatusEntity { 
+        Id = 4, 
+        Name = "Rejected", 
+        Description = "The claim has been rejected and will not be paid.", 
+        ExternalId = new Guid("9fad7c66-4554-4e26-858b-029f23964d61") 
+    },
+    new ClaimStatusEntity { 
+        Id = 5, 
+        Name = "Paid", 
+        Description = "The claim has been paid to the policyholder.", 
+        ExternalId = new Guid("6dcd8442-3463-4ff5-afa9-66aa54191c28") 
+    }
 );
 ```
 
@@ -133,6 +183,8 @@ Hint! Create an empty migration, add your own custom content using this format:
 ```csharp
 protected override void Up(MigrationBuilder migrationBuilder)
 {
+    //This example is just silly, but basically you can run any query as a part of a migration.
+    //I often use this to provision views/procedures and other resources if needed
     migrationBuilder.Sql("Delete dbo.ClaimStatus where ID = 5");
 }
 ```
@@ -211,6 +263,6 @@ Examine the output. Is this a good starting point for further development?
 IMO: Some cleanup is required. The classes created as partial (they are not!), the DbContext is messy, I would move configuration of the entities into static files. But hey! That is up to you.
 This TaskD does not have a "Solved" project, the expected output is the same as TaskA.Solved.
 
-That's it! We hope you enjoyed the workshop! Thank you from Morten and Stig!
+That's it! We hope you enjoyed the workshop! Thank you from Eugene and Stig!
 
 ![Instech Logo](/Images/instech_logo.png)
