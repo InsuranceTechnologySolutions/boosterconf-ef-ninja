@@ -1,11 +1,5 @@
 # Become an Entity Framework Ninja 🥷
 
-> ### Note for non-windows users
-> 
-> This workshop should have been platform-independent, but due to a bug (https://github.com/microsoft/mssql-docker/issues/868), we couldn't make it run in docker.
-> 
-> Sorry for the inconvenience.
-
 ## Short DDD introduction
 
 Slide-deck: [DDD - BoosterConf](https://instechas-my.sharepoint.com/:p:/g/personal/stig_nielsen_instech_no/EZCh10uwmQdNhL_lNy-pLm0B1-mP2juwa5-AD0KZ1ExSGg?e=780smi)
@@ -37,6 +31,16 @@ Maximum preparedness checklist:
 - You can navigate into the solution folder and run `dotnet build` - this means you have setup .NET correctly
 - You can connect to sql local DB via your database management tool of choice
 - `dotnet ef` (or `dotnet-ef`) runs successfully. This means you installed the EntityFramework tools correctly.
+
+> ### Note for non-windows users
+> There is a docker-compose.yml available, if you want to avoid hosting the SQL server locally, but it might not work
+> on latest linux kernel. If you want to use it, you need to do the following:
+>
+> - `docker-compose up -d` in the root of the solution.
+> - Change the connection strings to `Server=localhost;Database=EfNinja;User Id=sa;Password=P@ssw0rd!;Encrypt=False`.
+> You can find them in the `appsettings.json` in `*.Database` and `*.Api` project.
+> - When you are done, `docker-compose down` in the root of the solution.
+
 
 ### Task A - The Basics
 Ok, we have the initial setup, but something is off. We are missing the migrations in our dotnet solution.
@@ -112,18 +116,23 @@ builder.ToTable("Claims", "audit"); //similar for audit.Covers
 | ID | Name      | Description |
 |----|-----------|-------------|
 | 1  | Submitted | The claim has been submitted and is awaiting review. |
-| 2  | In Review | The claim is currently being reviewed by an insurance adjuster. |
-| 3  | Approved  | The claim has been approved for payment. |
-| 4  | Rejected  | The claim has been rejected and will not be paid. |
-| 5  | Paid      | The claim has been paid to the policyholder. |
+| 2  | Approved  | The claim has been approved for payment. |
+| 3  | Paid      | The claim has been paid to the policyholder. |
 ```
 Hint! EntityTypeBuilder has a "HasData" method:
 
 ```csharp
-builer.HasData(new List<ClaimStatusEntity>
-    new() { Id = 1, Name = "Submitted", Description = "The claim has been submitted and is..."},
-    //...
-);
+modelBuilder
+    .Entity<ClaimStatusEntity>()
+    .HasData([
+        new()
+        {
+            Id = 1, ExternalId = new("d578489e45e04ff89ef65b529ed5d95c"), 
+            Name = "Submitted",
+            Description = "The claim has been submitted and is awaiting review."
+        },
+        // ...
+    ]);
 ```
 
 * Editing the migrations (adding your own stuff). 
@@ -133,7 +142,7 @@ Hint! Create an empty migration, add your own custom content using this format:
 ```csharp
 protected override void Up(MigrationBuilder migrationBuilder)
 {
-    migrationBuilder.Sql("Delete dbo.ClaimStatus where ID = 5");
+    migrationBuilder.Sql("UPDATE dbo.ClaimStatus SET [Name] = 'Paid Out' WHERE Id = 3");
 }
 ```
     

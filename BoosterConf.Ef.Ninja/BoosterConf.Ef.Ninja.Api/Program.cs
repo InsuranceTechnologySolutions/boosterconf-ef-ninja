@@ -24,51 +24,54 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
-var mapper = new DtoMapper();
-
 app.MapGet(
     "/claims",
-    (InsuranceDbContext ctx) =>
-        ctx.Claims
-            .ToArrayAsync()
-            .ContinueWith(it => it.Result.Select(mapper.ToDto))
+    async (InsuranceDbContext ctx) =>
+    {
+        var allItems = await ctx.Claims.ToArrayAsync();
+        return allItems.Select(DtoMapper.ToDto);
+    }
 );
 app.MapGet(
     "/claims/{id}",
-    (Guid externalId, InsuranceDbContext ctx) =>
-        ctx.Claims
-            .SingleOrDefaultAsync(it => it.ExternalId == externalId)
-            .ContinueWith(it => mapper.ToDto(it.Result!))
+    async (Guid id, InsuranceDbContext ctx) =>
+    {
+        var claim = await ctx.Claims.SingleOrDefaultAsync(it => it.ExternalId == id);
+        return claim?.ToDto();
+    }
 );
 
 app.MapGet(
     "/covers",
-    (InsuranceDbContext ctx) =>
-        ctx.Covers
-            .ToArrayAsync()
-            .ContinueWith(it => it.Result.Select(mapper.ToDto))
+    async (InsuranceDbContext ctx) =>
+    {
+        var covers = await ctx.Covers.ToArrayAsync();
+        return covers.Select(it => it.ToDto());
+    }
 );
 app.MapGet(
     "/covers/{id}",
-    (Guid externalId, InsuranceDbContext ctx) =>
-        ctx.Covers
-            .SingleOrDefaultAsync(it => it.ExternalId == externalId)
-            .ContinueWith(it => mapper.ToDto(it.Result!))
+    async (Guid id, InsuranceDbContext ctx) => {
+        var cover = await ctx.Covers.SingleOrDefaultAsync(it => it.ExternalId == id);
+        return cover?.ToDto();
+    }
 );
 
 app.MapGet(
     "/customers",
-    (InsuranceDbContext ctx) =>
-        ctx.Customers
-            .ToArrayAsync()
-            .ContinueWith(it => it.Result.Select(mapper.ToDto))
+    async (InsuranceDbContext ctx) =>
+    {
+        var customers = await ctx.Customers.ToArrayAsync();
+        return customers.Select(it => it.ToDto());
+    }
 );
 app.MapGet(
     "/customers/{id}",
-    (Guid externalId, InsuranceDbContext ctx) =>
-        ctx.Customers
-            .SingleOrDefaultAsync(it => it.ExternalId == externalId)
-            .ContinueWith(it => mapper.ToDto(it.Result!))
+    async (Guid id, InsuranceDbContext ctx) =>
+    {
+        var customer = await ctx.Customers.SingleOrDefaultAsync(it => it.ExternalId == id);
+        return customer?.ToDto();
+    }
 );
 
 app.Run();
