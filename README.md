@@ -1,14 +1,5 @@
 # Become an Entity Framework Ninja 🥷
 
-
->### Note for non-windows users
->
->This workshop should have been platform-independent, but due to a bug 
-(https://github.com/microsoft/mssql-docker/issues/868), we couldn't make it run in docker.
-> Sorry for the inconvenience.
- 
-## Short DDD introduction
-
 Slide-deck: [DDD - BoosterConf](https://instechas-my.sharepoint.com/:p:/g/personal/stig_nielsen_instech_no/EZCh10uwmQdNhL_lNy-pLm0B1-mP2juwa5-AD0KZ1ExSGg?e=780smi)
 
 ## The tasks
@@ -38,6 +29,16 @@ Maximum preparedness checklist:
 - You can navigate into the solution folder and run `dotnet build` - this means you have setup .NET correctly
 - You can connect to sql local DB via your database management tool of choice
 - `dotnet ef` (or `dotnet-ef`) runs successfully. This means you installed the EntityFramework tools correctly.
+
+> ### Note for non-windows users
+> There is a docker-compose.yml available, if you want to avoid hosting the SQL server locally, but it [might not work](https://github.com/microsoft/mssql-docker/issues/868)
+> on latest linux kernel. If you want to use it, you need to do the following:
+>
+> - `docker-compose up -d` in the root of the solution.
+> - Change the connection strings to `Server=localhost;Database=EfNinja;User Id=sa;Password=P@ssw0rd!;Encrypt=False`.
+> You can find them in the `appsettings.json` in `*.Database` and `*.Api` project.
+> - When you are done, `docker-compose down` in the root of the solution.
+
 
 ### Task A - The Basics
 
@@ -134,46 +135,23 @@ builder.ToTable("Claims", "audit"); //similar for audit.Covers
 | ID | Name      | Description |
 |----|-----------|-------------|
 | 1  | Submitted | The claim has been submitted and is awaiting review. |
-| 2  | In Review | The claim is currently being reviewed by an insurance adjuster. |
-| 3  | Approved  | The claim has been approved for payment. |
-| 4  | Rejected  | The claim has been rejected and will not be paid. |
-| 5  | Paid      | The claim has been paid to the policyholder. |
+| 2  | Approved  | The claim has been approved for payment. |
+| 3  | Paid      | The claim has been paid to the policyholder. |
 ```
 Hint! EntityTypeBuilder has a "HasData" method:
 
 ```csharp
-builder.HasData(
-    new ClaimStatusEntity { 
-        Id = 1, 
-        Name = "Submited", 
-        Description = "The claim has been submitted and is awaiting review.", 
-        ExternalId = new Guid("659a9701-1f76-4993-bcbd-4d703c4e91cf") 
-    },
-    new ClaimStatusEntity { 
-        Id = 2, 
-        Name = "In Review", 
-        Description = "The claim is currently being reviewed by an insurance adjuster.", 
-        ExternalId = new Guid("5e5fb9bb-2f4a-4a6d-a8ff-3cd43321d7a3") 
-    },
-    new ClaimStatusEntity { 
-        Id = 3, 
-        Name = "Approved", 
-        Description = "The claim has been approved for payment.", 
-        ExternalId = new Guid("5ee54db2-1d57-4b82-89cd-ece3957cf1b3") 
-    },
-    new ClaimStatusEntity { 
-        Id = 4, 
-        Name = "Rejected", 
-        Description = "The claim has been rejected and will not be paid.", 
-        ExternalId = new Guid("9fad7c66-4554-4e26-858b-029f23964d61") 
-    },
-    new ClaimStatusEntity { 
-        Id = 5, 
-        Name = "Paid", 
-        Description = "The claim has been paid to the policyholder.", 
-        ExternalId = new Guid("6dcd8442-3463-4ff5-afa9-66aa54191c28") 
-    }
-);
+modelBuilder
+    .Entity<ClaimStatusEntity>()
+    .HasData([
+        new()
+        {
+            Id = 1, ExternalId = new("d578489e45e04ff89ef65b529ed5d95c"), 
+            Name = "Submitted",
+            Description = "The claim has been submitted and is awaiting review."
+        },
+        // ...
+    ]);
 ```
 
 * Editing the migrations (adding your own stuff). 
@@ -183,9 +161,9 @@ Hint! Create an empty migration, add your own custom content using this format:
 ```csharp
 protected override void Up(MigrationBuilder migrationBuilder)
 {
-    //This example is just silly, but basically you can run any query as a part of a migration.
-    //I often use this to provision views/procedures and other resources if needed
-    migrationBuilder.Sql("Delete dbo.ClaimStatus where ID = 5");
+    // Basically you can run any query as a part of a migration.
+    // I often use this to provision views/procedures and other resources if needed.
+    migrationBuilder.Sql("UPDATE dbo.ClaimStatus SET [Name] = 'Paid Out' WHERE Id = 3");
 }
 ```
     
@@ -254,7 +232,7 @@ You should now have the DB schemas on your localDb:
 Open a terminal, navigate to the Task ```BoosterConf.Ef.Ninja\BoosterConf.Ef.Ninja.TaskD``` folder (it must be the folder where the .csproj file is located). Run the following command:
 
 ```bash
-dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BoosterConfEfNinjaTaskOne-TaskD" Microsoft.EntityFrameworkCore.SqlServer
+dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EfNinja-TaskD" Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 More details on what happens in this article: [EF Core Scaffolding](https://learn.microsoft.com/en-us/ef/core/managing-schemas/scaffolding/?tabs=dotnet-core-cli)

@@ -7,24 +7,24 @@ namespace BoosterConf.Ef.Ninja.Api;
 // that doesn't leak the details of our database architecture.
 // We will do so before returning them over HTTP.
 [Mapper]
-public partial class DtoMapper
+public static partial class DtoMapper
 {
     [MapProperty(nameof(ClaimEntity.ExternalId), nameof(Claim.Id))]
-    public partial Claim ToDto(ClaimEntity entity);
-    
+    public static partial Claim ToDto(this ClaimEntity entity);
+
     [MapProperty(nameof(ClaimStatusEntity.ExternalId), nameof(ClaimStatus.Id))]
-    public partial ClaimStatus ToDto(ClaimStatusEntity entity);
-    
+    public static partial ClaimStatus ToDto(this ClaimStatusEntity entity);
+
     [MapProperty(nameof(CoverEntity.ExternalId), nameof(Cover.Id))]
     [MapProperty(nameof(CoverEntity.CoverType), nameof(Cover.Type))]
-    public partial Cover ToDto(CoverEntity entity);
-    
+    public static partial Cover ToDto(this CoverEntity entity);
+
     [MapProperty(nameof(CoverTypeEntity.ExternalId), nameof(CoverType.Id))]
-    public partial CoverType ToDto(CoverTypeEntity entity);
-    
+    public static partial CoverType ToDto(this CoverTypeEntity entity);
+
     [MapProperty(nameof(CustomerEntity.ExternalId), nameof(Customer.Id))]
-    public partial Customer ToDto(CustomerEntity entity);
-    
+    public static partial Customer ToDto(this CustomerEntity entity);
+
     [MapProperty(nameof(CustomerAddressEntity.ExternalId), nameof(CustomerAddress.Id))]
-    public partial CustomerAddress ToDto(CustomerAddressEntity entity);
+    public static partial CustomerAddress ToDto(this CustomerAddressEntity entity);
 }
