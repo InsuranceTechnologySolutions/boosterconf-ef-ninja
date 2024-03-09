@@ -20,6 +20,14 @@ public class InsuranceDbContext(DbContextOptions<InsuranceDbContext> options) : 
 
     private void ConfigureEntities(ModelBuilder modelBuilder)
     {
-         // Put you additional configuration here. Try accessing the modelBuilder:
+        // One way of defining entity configuration. An alternative to using attributes.
+        modelBuilder
+            .Entity<CoverEntity>()
+            .Property(cover => cover.Premium)
+            .HasPrecision(14, 2);
+        
+        modelBuilder
+            .Entity<CustomerEntity>()
+            .HasIndex(c => new { c.FirstName, c.LastName });
     }
 }
