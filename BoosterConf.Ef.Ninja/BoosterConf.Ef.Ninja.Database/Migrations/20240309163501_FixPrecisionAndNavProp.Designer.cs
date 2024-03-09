@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BoosterConf.Ef.Ninja.Database.Migrations
 {
     [DbContext(typeof(InsuranceDbContext))]
-    [Migration("20240309163501_FixedPrecision")]
+    [Migration("20240309163501_FixPrecisionAndNavProp")]
     partial class FixedPrecision
     {
         /// <inheritdoc />
