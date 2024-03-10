@@ -7,7 +7,11 @@ This repository is a template repository, so use this guide:
 
 [Github - Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
 
-This repository cannot be forked. 
+***NOTE***: When creating your own repository, you must include all branches.
+
+![Inclue All Branches](/Images/Include_All_Branches.png)
+
+This repository should not be forked. 
 
 ## The Requirements
 These were mentioned in the program, but in case you are not running on Windows or think Microsoft has enough monopoly over development tools, we have given you some alternatives.
@@ -41,6 +45,7 @@ Maximum preparedness checklist:
 
 
 ### Task A - The Basics
+> The goal of this task is to get familiar with how to create DB schemas based on the csharp entities. 
 
 ---
  **What is EF (really):** 
@@ -60,6 +65,9 @@ Scaffolding the migrations (from the CLI):
 ```bash
 dotnet ef migrations add InitialMigration
 ```
+
+> **NOTE:** All CLI commands, as the one above, has to be run from the folder where current project (.csproj file) is.
+
 This command generates a migration C# file alongside the current snapshot of the database schema in your
 project under `Migrations`.
 
@@ -83,6 +91,8 @@ management studio, it should looks like this:
 
 On first look, this looks fine, but I want you to fix a couple of things / bugs:
 
+> **Note**: All codechanges you will do will be within the **Database** project(s). 
+
 * One of the foreign key fields in Claims has a name not adhering to standard (CoverEntityId):
 
     ![Wrong field names](/Images/Wrong_FK_Name.png)
@@ -90,7 +100,7 @@ On first look, this looks fine, but I want you to fix a couple of things / bugs:
     Hint! The ClaimsEntity lacks the (navigation) property which represents the FK. You can also decorate that field with an annotation `[ForeignKey("CoverId")]` to make the Entity class easier to read (or if you have schemas which does not allow the ef core engine to naturally resolve these FK references).
 
 * When running the initial migration above, there were some warnings written to the console. Get rid of them:
-    * The schemas now uses nvarchar(max) as type for the string fields. This has a performance penalty.
+    * The schemas has nvarchar(max) as type for the string fields. This has a performance penalty.
     
         Hint! Look at the StringLength or MaxLength attribute (these are equivalent in ef core). What should the appropriate values be?
     * Decimal precision is not specified. 
@@ -100,6 +110,7 @@ On first look, this looks fine, but I want you to fix a couple of things / bugs:
     * Finding a customer by a FirstName, LastName combination will be common use case. Add a composite index consisting of these fields.
 
 ### Task B - More advanced features
+> The goal of this task is to partition data into different schemas (perhaps based on different bounded context). Also showing how to seed data (value-objects?) through migrations.  
 
 You will probably have to run the same migrations multiple times, so a few helpful snippets:
 
@@ -146,7 +157,8 @@ modelBuilder
     .HasData([
         new()
         {
-            Id = 1, ExternalId = new("d578489e45e04ff89ef65b529ed5d95c"), 
+            Id = 1, 
+            ExternalId = new("d578489e45e04ff89ef65b529ed5d95c"), 
             Name = "Submitted",
             Description = "The claim has been submitted and is awaiting review."
         },
@@ -168,14 +180,17 @@ protected override void Up(MigrationBuilder migrationBuilder)
 ```
     
 ### Task 3 - Inheritance
+> The goal of this task is to demonstrate the different inheritance strategies available in Entity Framework.
 
 The model has changed slightly. Now there is a base claim, and two subtypes `LifeClaim` and `AutoClaim`:
 
 ![Claim class diagram](/Images/Claim-models.jpeg)
 
-We will cover the different types:
+Inheritance like this can be represented in your DB schema, and hence is supported in multiple ways by Entity Framework.
 
-* TPH - one table per hierarchy (using a discriminator)
+We will cover the different types available:
+
+* TPH - one table per hierarchy (using a discriminator field)
 * TBT - table per type (the sub type specific fields are stored in separate tables)
 * TPC - table per concrete type (all fields are stored in separate tables)
 
@@ -184,6 +199,18 @@ The concepts are explained here: [EF Core Inheritance](https://learn.microsoft.c
 Note: Task C does not have a ".Solved" project, the output will be quite different based on the inheritance strategy you select, so this is just for you to experiment. 
 
 #### TPH - This is the default setup, you do not have to do anything
+
+Create a migration and examine the output. 
+
+> When done, Drop Task 3 DB, remove the migration to start fresh trying the other strategy.
+
+```sql
+DROP DATABASE [BoosterConfEfNinjaTaskOne-TaskC]
+```
+
+```csharp
+dotnet ef migrations remove
+```
 
 #### TBT - Do the following:
 
@@ -202,11 +229,23 @@ The expected output after running the migrations:
 
 ![Table-Per-Type](/Images/Table-Per-Type.png)
 
+Note that Id field of AutoClaims and LifeClaims also act as Foreign Keys.
+
+> When done, Drop Task 3 DB, remove the migration to start fresh trying the other strategy.
+
+```sql
+DROP DATABASE [BoosterConfEfNinjaTaskOne-TaskC]
+```
+
+```csharp
+dotnet ef migrations remove
+```
+
 #### TPC - Do the following:
 
 ```csharp
 //In ClaimEntityConfiguration.cs
-builder.ToTable("Claims").UseTpcMappingStrategy();
+builder.ToTable("Claims").UseTpcMappingStrategy(); //optional, should Claim be a separate entity?
 
 //In AutoClaimEntityConfiguration.cs
 builder.ToTable("AutoClaims").UseTpcMappingStrategy();
@@ -220,6 +259,9 @@ The expected output after running the migrations:
 ![Table-Per-Concrete-Type](/Images/Table-Per-Concrete-Type.png)
 
 ### Task 4 - Scaffolding
+> The goal is to demonstrate the EF scaffolding command and explain what it does. Has a big potential when migrating legacy code / database migraitons to a new code base based on csharp / entity framework. 
+
+This task is a bit different from the others. It will not be based on the previous task(s). And if we are short on time, you can do this task later on your own if you like. 
 
 There are certain scenarios where you start out with a set of schemas already existing. What to do then and how to move into a code-first setup?
 
@@ -232,7 +274,7 @@ You should now have the DB schemas on your localDb:
 Open a terminal, navigate to the Task ```BoosterConf.Ef.Ninja\BoosterConf.Ef.Ninja.TaskD``` folder (it must be the folder where the .csproj file is located). Run the following command:
 
 ```bash
-dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EfNinja-TaskD" Microsoft.EntityFrameworkCore.SqlServer
+dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BoosterConfEfNinjaTaskOne-TaskD" Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 More details on what happens in this article: [EF Core Scaffolding](https://learn.microsoft.com/en-us/ef/core/managing-schemas/scaffolding/?tabs=dotnet-core-cli)
