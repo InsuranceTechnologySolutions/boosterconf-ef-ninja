@@ -18,7 +18,16 @@ public class InsuranceDbContext(DbContextOptions<InsuranceDbContext> options) : 
         ConfigureSchemas(modelBuilder);
         ConfigureEntities(modelBuilder);
         SeedData(modelBuilder);
+        ConfigureClaimHierarchy(modelBuilder);
         base.OnModelCreating(modelBuilder);
+    }
+
+    private void ConfigureClaimHierarchy(ModelBuilder modelBuilder)
+    {
+        // We are using TPT (table-per-type) strategy with an abstract base type.
+        modelBuilder.Entity<AutoClaimEntity>().ToTable("AutoClaims");
+        modelBuilder.Entity<LifeClaimEntity>().ToTable("LifeClaims");
+        modelBuilder.Entity<MiscClaimEntity>().ToTable("MiscClaims");
     }
 
     private void SeedData(ModelBuilder modelBuilder)
