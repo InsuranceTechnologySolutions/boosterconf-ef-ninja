@@ -14,8 +14,17 @@ public class InsuranceDbContext(DbContextOptions<InsuranceDbContext> options) : 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        ConfigureSchemas(modelBuilder);
         ConfigureEntities(modelBuilder);
         base.OnModelCreating(modelBuilder);
+    }
+
+    private void ConfigureSchemas(ModelBuilder modelBuilder)
+    {
+        // All bits of the model will be placed into the "insurance" schema by default now.
+        // Check the CustomerEntity and CustomerAddressEntity types.
+        // They have also been moved to a new schema.
+        modelBuilder.HasDefaultSchema("insurance");
     }
 
     private void ConfigureEntities(ModelBuilder modelBuilder)
@@ -25,7 +34,7 @@ public class InsuranceDbContext(DbContextOptions<InsuranceDbContext> options) : 
             .Entity<CoverEntity>()
             .Property(cover => cover.Premium)
             .HasPrecision(14, 2);
-        
+
         modelBuilder
             .Entity<CustomerEntity>()
             .HasIndex(c => new { c.FirstName, c.LastName });

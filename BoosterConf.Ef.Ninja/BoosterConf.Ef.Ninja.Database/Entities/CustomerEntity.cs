@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BoosterConf.Ef.Ninja.Database.Entities;
 
+[Table("Customers", Schema = "pii")]
 public class CustomerEntity
 {
     public int Id { get; set; }
