@@ -1,4 +1,5 @@
 ﻿using BoosterConf.Ef.Ninja.Database.Entities;
+using BoosterConf.Ef.Ninja.Database.SeedData;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoosterConf.Ef.Ninja.Database;
@@ -16,7 +17,16 @@ public class InsuranceDbContext(DbContextOptions<InsuranceDbContext> options) : 
     {
         ConfigureSchemas(modelBuilder);
         ConfigureEntities(modelBuilder);
+        SeedData(modelBuilder);
         base.OnModelCreating(modelBuilder);
+    }
+
+    private void SeedData(ModelBuilder modelBuilder)
+    {
+        // We extracted the collection into a static class to avoid noise here.
+        modelBuilder
+            .Entity<ClaimStatusEntity>()
+            .HasData(ClaimStatusSeedData.SeedData);
     }
 
     private void ConfigureSchemas(ModelBuilder modelBuilder)
