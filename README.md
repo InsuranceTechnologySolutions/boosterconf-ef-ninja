@@ -252,6 +252,21 @@ public class LifeClaimEntity : ClaimEntity
     public required string DeathCertificate { get; set; }
 }
 ```
+By convention, EF will not automatically scan for base or derived types; this means that if you want a CLR type in your hierarchy to be mapped, you must explicitly specify that type on your model.
+You can do this through one of multiple ways:
+- Setup the base types in the model configuration:
+```
+    // In OnModelCreating:
+    modelBuilder.Entity<AutoClaimEntity>().HasBaseType<ClaimEntity>();
+    modelBuilder.Entity<LifeClaimEntity>().HasBaseType<ClaimEntity>();
+```
+- Have an explicit DB set of that type in your context:
+```
+    // In DbContext:
+    public DbSet<LifeClaimEntity> LifeClaims => Set<LifeClaimEntity>();
+    public DbSet<AutoClaimEntity> AutoClaims => Set<AutoClaimEntity>();
+```
+Which way you choose is up to you. We prefer the model configuration since it is cleaner, but if you need to query each type separately, it might be a better fit.
 
 Inheritance like this can be represented in your DB schema, and so EntityFramework supports the following strategies:
 
