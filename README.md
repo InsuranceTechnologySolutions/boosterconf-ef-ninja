@@ -29,14 +29,17 @@ We assume that if you don't really know much about DB design, you stick with def
     - Visual Studio or JetBrains Rider have builtin tools. VS Code extensions also can be used for this as well, but are not as well supported.
 * [EF core Tools](https://learn.microsoft.com/en-us/ef/core/cli/dotnet#installing-the-tools) - those should be installed as a part of Visual Studio, but make sure you can run `dotnet ef` or `dotnet-ef`
 
-> ### Note for docker enjoyers
+> ### Note for people who prefer docker or don't run windows
 > There is a docker-compose.yml available, if you want to avoid hosting the SQL server locally, but it [might not work](https://github.com/microsoft/mssql-docker/issues/868)
 > on latest linux kernel. If you want to use it, you need to do the following:
 >
 > - `docker-compose up -d` in the root of the solution.
-> - Change the connection strings to `Server=localhost;Database=EfNinja;User Id=sa;Password=P@ssw0rd!;Encrypt=False`.
-> You can find them in the `appsettings.json` in `*.Database` and `*.Api` project.
-> - When you are done, `docker-compose down` in the root of the solution.
+> - `cd` into the `*.Database` or `*.Api` project and set the connection string to your DB with:
+> ```bash
+> dotnet user-secrets set "ConnectionStrings:InsuranceDb" "Server=localhost;Database=EfNinja;User Id=sa;Password=P@ssw0rd!;Encrypt=False"`.
+> ````
+> - When you are done with the workshop, `docker-compose down` in the root of the solution.
+> - If you have questions, find one of us before the workshop and we can help you figure it out.
 
 Maximum preparedness checklist:
 - You can navigate into the solution folder and run `dotnet build` - this means you have setup .NET correctly
@@ -97,7 +100,7 @@ If you need to redo something, you can always remove the most recent migration:
 dotnet ef migrations remove
 ```
 
-> **NOTE:** Only migrations not applied to the DB can be removed. In our workshop, just delete the database if this prevents you from removing a migration. You can do that in the context meny in SQL Management Studio (delete), or by running ```DROP DATABASE <NAME_OF_DB>```.
+> **NOTE:** Only migrations not applied to the DB can be removed. In our workshop, just delete the database if this prevents you from removing a migration. You can do that in the context menu in SQL Management Studio (delete), or by running ```DROP DATABASE <NAME_OF_DB>```.
 
 In order to apply the migration, you need to run:
 
@@ -111,7 +114,7 @@ management studio, it should looks like this:
 
 On first look, this looks fine, but I want you to fix a couple of things / bugs:
 
-> **Note**: All codechanges you will do will be within the **Database** project(s).
+> **Note**: All code changes are done within the `*.Database` project(s).
 
 * One of the foreign key fields in Claims has a name not adhering to convention (the name is `CoverEntityId`, but our convention is `CoverId`):
 
@@ -121,7 +124,7 @@ On first look, this looks fine, but I want you to fix a couple of things / bugs:
     Hint! The ClaimsEntity lacks the (navigation) property which represents the FK. You can also decorate that field with an annotation `[ForeignKey("CoverId")]` to make the Entity class easier to read (or if you have schemas which does not allow the ef core engine to naturally resolve these FK references).
     ```
 
-* When running the initial migration above, there were some warnings written to the console (yellow squigglies in your IDE). Get rid of them:
+* When running the initial migration above, there were some warnings written to the console (yellow squiggly lines in your IDE). Get rid of them:
     * The schemas are using nvarchar(max) as type for the string fields by default. This has a performance penalty. We want to limit the size of those strings for optimisation reasons.
         ```
         Hint! Look at the StringLength or MaxLength attribute (these are equivalent in ef core). What should the appropriate values be?
@@ -255,13 +258,13 @@ public class LifeClaimEntity : ClaimEntity
 By convention, EF will not automatically scan for base or derived types; this means that if you want a CLR type in your hierarchy to be mapped, you must explicitly specify that type on your model.
 You can do this through one of multiple ways:
 - Setup the base types in the model configuration:
-```
+```csharp
     // In OnModelCreating:
     modelBuilder.Entity<AutoClaimEntity>().HasBaseType<ClaimEntity>();
     modelBuilder.Entity<LifeClaimEntity>().HasBaseType<ClaimEntity>();
 ```
 - Have an explicit DB set of that type in your context:
-```
+```csharp
     // In DbContext:
     public DbSet<LifeClaimEntity> LifeClaims => Set<LifeClaimEntity>();
     public DbSet<AutoClaimEntity> AutoClaims => Set<AutoClaimEntity>();
@@ -322,7 +325,8 @@ dotnet ef migrations remove
 
 #### Table per Concrete Type
 This will generate a table per each concrete type in the hierarchy and duplicate all of the properties from base types.
-This is by far the newest type of inheritance supported by EF.
+This is by far the newest type of inheritance supported by EF. It can sometimes be quirky, so don't get discouraged if 
+it doesn't work :)
 
 ```csharp
 modelBuilder.Entity<ClaimEntity>().UseTpcMappingStrategy().ToTable("Claims");
@@ -374,6 +378,7 @@ You should now have an empty project into which we are going to scaffold our inf
 Open a terminal, navigate to the project ```BoosterConf.Ef.Ninja\BoosterConf.Ef.Ninja.DbFirstDatabase``` and run the following command:
 
 ```bash
+# Make sure you are using the correct connection string if using docker.
 dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EfNinja-TaskD" Microsoft.EntityFrameworkCore.SqlServer
 ```
 

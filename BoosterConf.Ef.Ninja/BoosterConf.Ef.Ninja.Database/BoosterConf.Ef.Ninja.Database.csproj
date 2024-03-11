@@ -4,6 +4,7 @@
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <UserSecretsId>f57d8113-b71b-4840-be14-f677f03951a1</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,12 +15,10 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <Content Update="appsettings.Development.json" Condition="Exists('appsettings.Development.json')">
-            <DependentUpon>appsettings.json</DependentUpon>
-        </Content>
         <Content Include="appsettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
