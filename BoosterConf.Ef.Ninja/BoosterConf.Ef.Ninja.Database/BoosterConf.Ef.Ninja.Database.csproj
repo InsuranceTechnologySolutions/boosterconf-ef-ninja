@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="appsettings.Development.json">
+      <Content Update="appsettings.Development.json" Condition="Exists('appsettings.Development.json')">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         <DependentUpon>appsettings.json</DependentUpon>
       </Content>
