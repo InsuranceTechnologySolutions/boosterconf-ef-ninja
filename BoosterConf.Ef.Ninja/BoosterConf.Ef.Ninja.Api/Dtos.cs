@@ -36,8 +36,8 @@ public class CoverType
 
 public class Customer
 {
-    public required Guid Id { get; set; }
-    public required CustomerAddress Address { get; set; }
+    public Guid? Id { get; set; }
+    public CustomerAddress? Address { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public required string Email { get; set; }

@@ -9,7 +9,7 @@ public class DesignTimeInsuranceDbContextFactory : IDesignTimeDbContextFactory<I
     private IConfiguration Configuration { get; } =
         new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
-            .AddJsonFile("appsettings.Development.json", optional: true)
+            .AddUserSecrets(typeof(InsuranceDbContext).Assembly)
             .Build();
 
     public InsuranceDbContext CreateDbContext(string[] args)
