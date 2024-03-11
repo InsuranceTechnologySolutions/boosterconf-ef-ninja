@@ -24,10 +24,12 @@ public class InsuranceDbContext(DbContextOptions<InsuranceDbContext> options) : 
 
     private void ConfigureClaimHierarchy(ModelBuilder modelBuilder)
     {
-        // We are using TPT (table-per-type) strategy with an abstract base type.
+        // We are using TPT (table-per-type) strategy here.
+        // When using TPT, it can be a good idea to mark the base type as abstract.
+        // It is not necessary, but could be a good idea to express
+        // the TPT pattern more clearly. We chose not to do it in this example.
         modelBuilder.Entity<AutoClaimEntity>().ToTable("AutoClaims");
         modelBuilder.Entity<LifeClaimEntity>().ToTable("LifeClaims");
-        modelBuilder.Entity<MiscClaimEntity>().ToTable("MiscClaims");
     }
 
     private void SeedData(ModelBuilder modelBuilder)

@@ -27,13 +27,7 @@ public class LifeClaimEntity : ClaimEntity
     public required string DeathCertificate { get; set; }
 }
 
-public class MiscClaimEntity : ClaimEntity
-{
-    [MaxLength(length: 1024)]
-    public required string AdditionalDetails { get; set; }
-}
-
-public abstract class ClaimEntity
+public class ClaimEntity
 {
     public int Id { get; set; }
     public required Guid ExternalId { get; set; }

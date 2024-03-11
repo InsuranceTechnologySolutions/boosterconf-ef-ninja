@@ -296,18 +296,6 @@ namespace BoosterConf.Ef.Ninja.Database.Migrations
                     b.ToTable("LifeClaims", "insurance");
                 });
 
-            modelBuilder.Entity("BoosterConf.Ef.Ninja.Database.Entities.MiscClaimEntity", b =>
-                {
-                    b.HasBaseType("BoosterConf.Ef.Ninja.Database.Entities.ClaimEntity");
-
-                    b.Property<string>("AdditionalDetails")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
-
-                    b.ToTable("MiscClaims", "insurance");
-                });
-
             modelBuilder.Entity("BoosterConf.Ef.Ninja.Database.Entities.ClaimEntity", b =>
                 {
                     b.HasOne("BoosterConf.Ef.Ninja.Database.Entities.CoverEntity", "Cover")
@@ -369,15 +357,6 @@ namespace BoosterConf.Ef.Ninja.Database.Migrations
                     b.HasOne("BoosterConf.Ef.Ninja.Database.Entities.ClaimEntity", null)
                         .WithOne()
                         .HasForeignKey("BoosterConf.Ef.Ninja.Database.Entities.LifeClaimEntity", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BoosterConf.Ef.Ninja.Database.Entities.MiscClaimEntity", b =>
-                {
-                    b.HasOne("BoosterConf.Ef.Ninja.Database.Entities.ClaimEntity", null)
-                        .WithOne()
-                        .HasForeignKey("BoosterConf.Ef.Ninja.Database.Entities.MiscClaimEntity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
