@@ -28,6 +28,10 @@ public class InsuranceDbContext(DbContextOptions<InsuranceDbContext> options) : 
         // When using TPT, it can be a good idea to mark the base type as abstract.
         // It is not necessary, but could be a good idea to express
         // the TPT pattern more clearly. We chose not to do it in this example.
+        // ------
+        // Also note that because we explicitly setup the configuration for entities, we have
+        // already made EF aware of the derived types and are therefore not required to 
+        // have it as a DbSet or specify an explicit base type.
         modelBuilder.Entity<AutoClaimEntity>().ToTable("AutoClaims");
         modelBuilder.Entity<LifeClaimEntity>().ToTable("LifeClaims");
     }
