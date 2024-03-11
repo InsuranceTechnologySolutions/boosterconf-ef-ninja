@@ -321,17 +321,13 @@ dotnet ef migrations remove
 ```
 
 #### Table per Concrete Type
+This will generate a table per each concrete type in the hierarchy and duplicate all of the properties from base types.
+This is by far the newest type of inheritance supported by EF.
 
 ```csharp
-modelBuilder
-    .Entity<AutoClaimEntity>()
-    .ToTable("AutoClaims")
-    .UseTpcMappingStrategy();
-
-modelBuilder
-    .Entity<LifeClaimEntity>()
-    .ToTable("LifeClaims")
-    .UseTpcMappingStrategy();
+modelBuilder.Entity<ClaimEntity>().UseTpcMappingStrategy().ToTable("Claims");
+modelBuilder.Entity<AutoClaimEntity>().ToTable("AutoClaims");
+modelBuilder.Entity<LifeClaimEntity>().ToTable("LifeClaims");
 ```
 
 The expected output after running the migrations:
