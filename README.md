@@ -324,6 +324,10 @@ dotnet ef migrations remove
 ```
 
 #### Table per Concrete Type
+
+> Creating a migration for TPC inheritance can be problematic. Most likely you have to DROP the DB, remove all migration files and create a new initial migration.
+If not you will most likely get this error message ```To change the IDENTITY property of a column, the column needs to be dropped and recreated.```
+
 This will generate a table per each concrete type in the hierarchy and duplicate all of the properties from base types.
 This is by far the newest type of inheritance supported by EF. It can sometimes be quirky, so don't get discouraged if 
 it doesn't work :)
